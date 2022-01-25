@@ -45,28 +45,28 @@ public class Loader
       
 	public final void MenuMain(final Context context)
 	{      
-		Loader.context = context;
-		Menu menu = new Menu(context);
-		menu.setWidth(menu.dpi(300));
-		menu.setHeight(menu.dpi(250));
-		menu.setIconImage(Icon());
-		menu.setTitle(setTitleText());
+	Loader.context = context;
+	Menu menu = new Menu(context);
+	menu.setWidth(menu.dpi(300));
+	menu.setHeight(menu.dpi(250));
+	menu.setIconImage(Icon());
+	menu.setTitle(setTitleText());
         
         TextView BB = new TextView(context);
         BB.setText(Html.fromHtml(setHeadingText()));
         BB.setTextColor(Color.WHITE);
         BB.setTextSize(13.5f);
         BB.setGravity(Gravity.CENTER);
-		menu.getChildOfScroll().addView(BB);
-		String[] listFT = getFeatures();
+	menu.getChildOfScroll().addView(BB);
+	String[] listFT = getFeatures();
         for (int i = 0; i < listFT.length; i++) {
-            final int feature = i;
-            String str = listFT[i];
-            String[] split = str.split("_");
-            if (str.contains("ButtonOnOff_")) {
-                menu.ButtonOnOff(feature, split[1], new Menu.ibt() {
-						public void OnWrite() {
-							Changes(feature, 0);
+        final int feature = i;
+        String str = listFT[i];
+        String[] split = str.split("_");
+        if (str.contains("ButtonOnOff_")) {
+            menu.ButtonOnOff(feature, split[1], new Menu.ibt() {
+					public void OnWrite() {
+					Changes(feature, 0);
 						}
 					});
 			} else if (str.contains("Button_")) {
