@@ -27,7 +27,7 @@ public class Loader
 
     private static native String[] getFeatures();
 	
-	public static boolean hide;
+    public static boolean hide;
     private static native String Icon();
     public static native String setTitleText();
     private static native String setHeadingText();

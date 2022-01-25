@@ -19,7 +19,7 @@
 #define libName OBFUSCATE("libil2cpp.so")
 
    struct My_Patches {   
-    MemoryPatch GodMode, GodMode2, SliderExample;
+    MemoryPatch GodMode, GodMode2;
 } hexPatches; 
 	
 	bool chams, shading, wireframe, glow, outline, rainbow;
