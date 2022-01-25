@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme"
         android:resizeableActivity="false">
         <activity
-            android:name="com.android.support.ActivityMain">
+            android:name="com.android.support.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

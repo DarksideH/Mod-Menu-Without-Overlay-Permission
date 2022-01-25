@@ -32,9 +32,7 @@ public class Menu
 	protected LinearLayout menulayout;  
 	protected ScrollView scrollItems;    
 	
-	private native String SliderString(int feature, int value);
-
-	protected TextView cred;
+	protected TextView title;
 
 	protected WindowManager wmManager;
 	protected WindowManager.LayoutParams wmParams;
@@ -42,7 +40,6 @@ public class Menu
 
 	protected LinearLayout childOfScroll;
 	protected LinearLayout infos;
-    public static boolean game;
 	
 	//For Animarions
     static int dur; 
@@ -87,13 +84,8 @@ public class Menu
 			linearLayout.setLayoutParams(layoutParams);
 
 			//Textview
-			final TextView textView = new TextView(context);
-			String str = SliderString(featurenum, 0);		
-
-			if (str != null) //Show text progress instead number
-				textView.setText(feature + " : " + str);
-			else  //If string is null, show number instead
-				textView.setText(feature + " : " + prog);
+			final TextView textView = new TextView(context);				
+		    textView.setText(feature + " : " + prog);
 			textView.setTextSize(13.0f);
 			textView.setGravity(3);
 			textView.setTextColor(Color.WHITE);
@@ -119,20 +111,15 @@ public class Menu
 
 					public void onStopTrackingTouch(SeekBar seekBar) {
 					}
+					
 					int l;
 					public void onProgressChanged(SeekBar seekBar, int i, boolean z) {
 						if (l < i) {            
 						}
-						l = i;
-						String str = SliderString(featurenum, i);
-
+						l = i;					
 						interInt.OnWrite(i);
-						TextView textView = textView2;
-
-						if (str != null)
-							textView.setText(feature + " : " + str);
-						else
-							textView.setText(feature + " : " + i);
+						TextView textView = textView2;			
+						textView.setText(feature + " : " + i);
 					}
 				});
 			linearLayout.addView(textView);
@@ -165,10 +152,9 @@ public class Menu
         ButtonOnOff.setPadding(3, 3, 3, 3);
         layoutParams2.bottomMargin = 0;
         ButtonOnOff.setLayoutParams(layoutParams2);
-        final String gays2 = feature;
+        final String featName = feature;
         ButtonOnOff.setOnClickListener(new View.OnClickListener() {
-                private boolean isActive = true;
-                boolean gaa;
+                private boolean isActive = true;              
                 public void onClick(View v) {
                     switch (featNum) {
                          case -1:                                        
@@ -176,13 +162,13 @@ public class Menu
                     }
                     interfaceBtn.OnWrite();
                     if (isActive) {
-                        ButtonOnOff.setText(Html.fromHtml("<b>" + gays2 + "</b>"));           
+                        ButtonOnOff.setText(Html.fromHtml("<b>" + featName + "</b>"));           
                         ButtonOnOff.setTextSize(15.5f);
                         ButtonOnOff.setBackgroundColor(Color.parseColor("#30FFFFFF"));
                         isActive = false;
                         return;
                     }
-                    ButtonOnOff.setText(gays2);                 
+                    ButtonOnOff.setText(featName);                 
                     ButtonOnOff.setTextSize(15.0f);
                     ButtonOnOff.setBackgroundColor(Color.TRANSPARENT);
                     isActive = true;
@@ -216,9 +202,8 @@ public class Menu
         Button.setPadding(3, 3, 3, 3);
         layoutParams2.bottomMargin = 0;
         Button.setLayoutParams(layoutParams2);
-        final String gays2 = feature;
+        final String featName = feature;
         Button.setOnClickListener(new View.OnClickListener() {
-               // private boolean game;
                 public void onClick(View v) {
                     switch (featNum) {
                         case -2:                         
@@ -226,13 +211,13 @@ public class Menu
                     }
 					Button.setBackgroundColor(Color.parseColor("#30FFFFFF"));
 					Button.setTextSize(15.5f);
-					Button.setText(Html.fromHtml("<b>" + gays2 + "</b>"));
+					Button.setText(Html.fromHtml("<b>" + featName + "</b>"));
 					final  Handler handler = new Handler();
 					handler.postDelayed(new Runnable() {
 							@Override
 							public void run() {
 								Button.setBackgroundColor(Color.TRANSPARENT);
-								Button.setText(gays2);
+								Button.setText(featName);
 								Button.setTextSize(14.5f);
 							}
 						},75);				
@@ -274,7 +259,7 @@ public class Menu
 		isMenuVisible = false;
 		iconView = new ImageView(context);
 		closeView = new ImageView(context);
-	    cred = new TextView(context);
+		title = new TextView(context);
 
 		parentBox = new FrameLayout(context);
 
@@ -289,7 +274,7 @@ public class Menu
 			WindowManager.LayoutParams.WRAP_CONTENT,
 			WindowManager.LayoutParams.WRAP_CONTENT,
 			10,//initialX
-			80,//initialy
+			80,//initialY
 			WindowManager.LayoutParams.TYPE_APPLICATION,
 			WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
 			WindowManager.LayoutParams.FLAG_LAYOUT_IN_OVERSCAN |
@@ -335,8 +320,8 @@ public class Menu
     
 	public void setTitle(String text)
 	{
-		cred.setText(text);
-        cred.setOnClickListener(new View.OnClickListener(){
+		title.setText(text);
+		title.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View p1)
                 {
@@ -347,14 +332,14 @@ public class Menu
           
 	public TextView getTitleTextView()
 	{
-	return cred;
+		return title;
 	}
 
 	public void showIcon() {
         iconView.setAnimation(fadeout());//The appearance of the icon
-		if (Main.hide) {
+		if (Loader.hide) {
 			iconView.setVisibility(View.INVISIBLE);
-		} else if (!Main.hide) {            
+		} else if (!Loader.hide) {            
 			iconView.setVisibility(View.VISIBLE);
 		}
 		if (!isIconVisible)
@@ -392,11 +377,11 @@ public class Menu
 		WIDTH = dpi(100);
 		HEIGHT = dpi(50);
 
-		final GradientDrawable shit = new GradientDrawable();
-		shit.setColor(Color.parseColor("#9A2D3133"));
-		shit.setCornerRadius(50.0f);
+		final GradientDrawable menuGD = new GradientDrawable();
+		menuGD.setColor(Color.parseColor("#000000"));//#9A2D3133
+		menuGD.setCornerRadius(50.0f);
 		
-		ValueAnimator colorAnim = ObjectAnimator.ofInt(cred,"textColor", Color.rgb(0,255,255), Color.rgb(0,128,255), Color.rgb(0,0,255), Color.rgb(255,0,255));
+		ValueAnimator colorAnim = ObjectAnimator.ofInt(title,"textColor", Color.rgb(0,255,255), Color.rgb(0,128,255), Color.rgb(0,0,255), Color.rgb(255,0,255));
 		colorAnim.setDuration(4000);
 		colorAnim.setEvaluator(new ArgbEvaluator());
 		colorAnim.setRepeatCount(ValueAnimator.INFINITE);
@@ -404,7 +389,7 @@ public class Menu
         colorAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 				@Override
 				public void onAnimationUpdate(ValueAnimator animator) {
-					shit.setStroke(3,(int) animator.getAnimatedValue());
+					menuGD.setStroke(3,(int) animator.getAnimatedValue());
 				}
 			});
         colorAnim.start();
@@ -416,11 +401,11 @@ public class Menu
 
 			menulayout.addView(headerLayout, -1, -2);
 			//MENU BG COLOR
-			menulayout.setBackground(shit);
+			menulayout.setBackground(menuGD);
 			{
 				ImageView minimize=new ImageView(context);
-				InputStream istr=null;
-				Bitmap bitmap=null;
+				InputStream istr = null;
+				Bitmap bitmap = null;
 				AssetManager assetManager = context.getAssets();
 				try
 				{
@@ -435,13 +420,13 @@ public class Menu
 				{
 					minimize.setImageBitmap(bitmap);
 				}
-				cred.setTextColor(Color.RED);
-				cred.setTextSize(19);
-				cred.setGravity(Gravity.CENTER_HORIZONTAL);
+				title.setTextColor(Color.RED);
+				title.setTextSize(19);
+				title.setGravity(Gravity.CENTER_HORIZONTAL);
 				{
 					infos = new LinearLayout(context);
 					infos.setOrientation(LinearLayout.VERTICAL);
-					infos.addView(cred,-1,-1);
+					infos.addView(title,-1,-1);
 					headerLayout.addView(infos, -1, -1);
 					LinearLayout.LayoutParams mnp=(LinearLayout.LayoutParams)infos.getLayoutParams();
 					mnp.weight = 10;
@@ -450,7 +435,7 @@ public class Menu
 				}
 				headerLayout.addView(minimize, dpi(25),dpi(25));
 				{
-					LinearLayout.LayoutParams mnp=(LinearLayout.LayoutParams)minimize.getLayoutParams();
+					LinearLayout.LayoutParams mnp = (LinearLayout.LayoutParams)minimize.getLayoutParams();
 					mnp.weight = 0;
 					mnp.gravity = Gravity.RIGHT;
 					minimize.setLayoutParams(mnp);
@@ -463,19 +448,10 @@ public class Menu
 								showMenu();
 							}
 						});
-				     }
-                   {
-
-			   closeView.setOnClickListener(new View.OnClickListener(){
-							@Override
-							public void onClick(View p1)
-							{                       
-							}
-						 }); 
-				      }
-			       }
-		        }
-                
+				      }               								               
+				    }					 
+				  }		       
+		               
 		scrollItems = new ScrollView(context);
 
 		childOfScroll = new LinearLayout(context);
@@ -495,6 +471,7 @@ public class Menu
 	{
 		private float initX;          
 		private float initY;
+		
 		private float touchX;
 		private float touchY;
 
@@ -508,14 +485,16 @@ public class Menu
 
 					initX = wmParams.x;
 					initY = wmParams.y;
+					
 					touchX = ev.getRawX();
 					touchY = ev.getRawY();
+					
 					clock = System.currentTimeMillis();
 					break;
 
 				case MotionEvent.ACTION_MOVE:
+					
 					wmParams.x = (int)initX + (int)(ev.getRawX() - touchX);
-
 					wmParams.y = (int)initY + (int)(ev.getRawY() - touchY);
 
 					wmManager.updateViewLayout(vw, wmParams);
@@ -537,9 +516,5 @@ public class Menu
 	
 	public static interface iit {
         void OnWrite(int i);
-    }
-	
-	private int convertDipToPixels(int i) {
-        return (int) ((((float) i) * context.getResources().getDisplayMetrics().density) + 0.5f);
     }
 }

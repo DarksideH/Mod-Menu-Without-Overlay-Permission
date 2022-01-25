@@ -1,43 +1,65 @@
+#include <list>
+#include <vector>
+#include <string.h>
 #include <pthread.h>
+#include <cstring>
 #include <jni.h>
-#include <Includes/Utils.h>
-#include <Substrate/SubstrateHook.h>
+#include <unistd.h>
+#include <fstream>
+#include <iostream>
+#include <dlfcn.h>
 #include "KittyMemory/MemoryPatch.h"
-#include <Icon.h>
-#include <Includes/Chams.h>
-extern "C" {
-	bool Bypass;
+#include "Includes/obfuscate.h"
+#include "Includes/Chams.h"
+#include "Includes/Utils.h"
+#include "Icon.h"
 	 
-    struct My_Patches {MemoryPatch Bypass;} hexPatches;
-    const char *libName = "libil2cpp.so";
+#include <Substrate/SubstrateHook.h>
+
+#define libName OBFUSCATE("libil2cpp.so")
+
+   struct My_Patches {   
+    MemoryPatch GodMode, GodMode2, SliderExample;
+} hexPatches; 
+	
+	bool chams, shading, wireframe, glow, outline, rainbow;
+    
+extern "C" {	
 	
     JNIEXPORT jstring JNICALL
-    Java_com_android_support_Main_setTitleText(
+    Java_com_android_support_Loader_setTitleText(
         JNIEnv *env,
         jobject activityObject) {
-    jstring str = env->NewStringUTF("    Modded by Darkside");// do not earse the space this for normal text view
-    return str;
-}
-    JNIEXPORT jstring JNICALL
-    Java_com_android_support_Main_setHeadingText(
-        JNIEnv *env,
-        jobject activityObject) {
-    jstring str = env->NewStringUTF("Telegram:@DarkSide | YouTube:Darkside");
+    jstring str = env->NewStringUTF(OBFUSCATE("     Modded by Darkside"));
         return str;
     }
-    
-JNIEXPORT jobjectArray  JNICALL
-Java_com_android_support_Main_getFeatures(
+
+    JNIEXPORT jstring JNICALL
+    Java_com_android_support_Loader_setHeadingText(
         JNIEnv *env,
         jobject activityObject) {
+    jstring str = env->NewStringUTF(OBFUSCATE("Private Mod Menu | by Darkside"));
+        return str;
+    }
+
+JNIEXPORT jobjectArray  JNICALL
+Java_com_android_support_Loader_getFeatures(
+    JNIEnv *env,
+    jobject activityObject) {
     jobjectArray ret;
-    const char *features[] = {          
-		    "Text_Text︎",//0
-            "ButtonOnOff_ButtonOnOff",//1
-            "Button_Button",//2
-            "SeekBar_SeekBar_0_100",//3
-			"Text_Hide && icon",
-            "Hide_Icon invisible",          
+    const char *features[] = {          	   
+            OBFUSCATE("Text_Chams Menu︎"), //0
+            OBFUSCATE("ButtonOnOff_Default Chams"),//1
+            OBFUSCATE("ButtonOnOff_Shading Chams"), //2
+            OBFUSCATE("ButtonOnOff_Wireframe Chams"),//3
+            OBFUSCATE("ButtonOnOff_Glow Chams"),//4
+            OBFUSCATE("ButtonOnOff_Outline Chams"), //5
+            OBFUSCATE("ButtonOnOff_Rainbow Chams"), //6         
+            OBFUSCATE("SeekBar_Line Width_0_12"),//8
+            OBFUSCATE("SeekBar_Color R_0_255"),//9
+            OBFUSCATE("SeekBar_Color G_0_255"),//10
+            OBFUSCATE("SeekBar_Color B_0_255"),//11
+            OBFUSCATE("Hide_Icon invisible"),          
             };
 
     int Total_Feature = (sizeof features /
@@ -50,77 +72,78 @@ Java_com_android_support_Main_getFeatures(
         env->SetObjectArrayElement(ret, i, env->NewStringUTF(features[i]));
     return (ret);
 } 
+
 JNIEXPORT void JNICALL
-Java_com_android_support_Main_Changes(
+Java_com_android_support_Loader_Changes(
         JNIEnv *env,
         jobject activityObject,
         jint feature,
         jint value) {
-    switch (feature) {
-        case 0:
-        break;				
+        switch (feature) {
+        case 1:
+        chams = !chams;
+        if (chams) {
+        SetWallhack(true);
+        } else {
+        SetWallhack(false);
+        }
+        break;
+        case 2:
+        shading = !shading;
+        if (shading) {
+        SetWallhackS(true);
+        } else {
+        SetWallhackS(false);
+        }
+        break;
+        case 3:
+        wireframe = !wireframe;
+        if (wireframe) {
+        SetWallhackW(true);  
+        } else {
+        SetWallhackW(false);  
+        }
+        break;
+        case 4:
+        glow = !glow;
+        if (glow) {
+        SetWallhackG(true);
+        } else {
+        SetWallhackG(false);
+        }
+        break;
+        case 5:
+        outline = !outline;
+        if (outline) {
+        SetWallhackO(true); 
+        } else {
+        SetWallhackO(false);
+        }
+        break;
+        case 6:
+        rainbow = !rainbow;
+        if (rainbow) {
+        SetRainbow(true);
+        } else {
+        SetRainbow(false);
+        }
+        break;    
+        case 8:
+        SetW(value);
+        break;      
+        case 9:
+        SetR(value);
+        break;
+        case 10:
+        SetG(value);
+        break;
+        case 11:
+        SetB(value);
+        break; 
 	}
 }
-JNIEXPORT jstring JNICALL
-Java_com_android_support_Menu_SliderString(
-        JNIEnv *env,
-        jobject clazz, jint feature, jint value) {
-    // You must count your features from 0, not 1
-    const char *SliderStr;
-    if (feature == 555) {
-        switch (value) {
-            case 0:
-                SliderStr = "Default";
-                break;
-            case 1:
-                SliderStr = "2x";
-                break;
-            case 2:
-                SliderStr = "4x";
-                break;
-            case 3:
-                SliderStr = "8x";
-                break;
-            case 4:
-                SliderStr = "12x";
-                break;
-            case 5:
-                SliderStr = "24x";
-                break;
-        }
-        return env->NewStringUTF(SliderStr);
-    }
-    if (feature == 500) {
-        switch (value) {
-            case 0:
-                SliderStr = "Neck";
-                break;
-            case 1:
-                SliderStr = "Hip";
-                break;
-            case 2:
-                SliderStr = "Head";
-                break;
-        }
-        return env->NewStringUTF(SliderStr);
-    }
-    if (feature == 500) {
-        if (value <= 15){
-            SliderStr = "Low";
-        }
-        else if (value >= 15 && value <= 35){
-            SliderStr = "Medium";
-        }
-        else if (value >= 35){
-            SliderStr = "High";
-        }
-        return env->NewStringUTF(SliderStr);
-    }
-    return env->NewStringUTF(NULL);
-  }
-}
-// ---------- Hooking ---------- //
 
+// ---------- Hooking ---------- //
 void *hack_thread(void *) {
     
     ProcMap il2cppMap;
@@ -131,16 +154,20 @@ void *hack_thread(void *) {
     setShader("_BumpMap");
     LogShaders();
     Wallhack();
-   
-   return NULL;
-}
 
+	//Anti-lib rename
+    do {
+        sleep(1);
+    } while (!isLibraryLoaded(OBFUSCATE("libDarkTeam.so")));
+	
+    return NULL;
+}
+    
 JNIEXPORT jint JNICALL
 JNI_OnLoad(JavaVM *vm, void *reserved) {
     JNIEnv *globalEnv;
     vm->GetEnv((void **) &globalEnv, JNI_VERSION_1_6);
 
-    // Create a new thread so it does not block the main thread, means the game would not freeze
     pthread_t ptid;
     pthread_create(&ptid, NULL, hack_thread, NULL);
 
@@ -149,4 +176,4 @@ JNI_OnLoad(JavaVM *vm, void *reserved) {
 
 JNIEXPORT void JNICALL
 JNI_OnUnload(JavaVM *vm, void *reserved) {}
-
+}

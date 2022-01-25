@@ -5,7 +5,7 @@ include $(CLEAR_VARS)
 # Here is the name of your lib.
 # When you change the lib name, change also on System.loadLibrary("") under OnCreate method on StaticActivity.java
 # Both must have same name
-LOCAL_MODULE := gvraudio
+LOCAL_MODULE := DarkTeam
 
 # Code optimization
 LOCAL_ARM_MODE := arm
@@ -17,7 +17,7 @@ LOCAL_LDFLAGS += -Wl,--strip-all
 # Here you add the cpp file
 LOCAL_C_INCLUDES += $(MAIN_LOCAL_PATH)
 LOCAL_SRC_FILES := main.cpp \
-   Substrate/SubstrateDebug.cpp \
+    Substrate/SubstrateDebug.cpp \
 	Substrate/SubstrateHook.cpp \
 	Substrate/SubstratePosixMemory.cpp \
 	KittyMemory/KittyMemory.cpp \

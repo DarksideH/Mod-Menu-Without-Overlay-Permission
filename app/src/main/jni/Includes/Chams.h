@@ -280,6 +280,5 @@ void Wallhack(){
     }
 }
 
-
 #endif
 
