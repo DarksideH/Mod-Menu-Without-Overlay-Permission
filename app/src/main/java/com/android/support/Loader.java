@@ -20,10 +20,10 @@ import java.io.UnsupportedEncodingException;
 
 public class Loader 
 {
-	protected static Context context;
-	protected LinearLayout childOfScroll;
+    protected static Context context;
+    protected LinearLayout childOfScroll;
 	
-	public static native void Changes(int feature, int value);
+    public static native void Changes(int feature, int value);
 
     private static native String[] getFeatures();
 	
