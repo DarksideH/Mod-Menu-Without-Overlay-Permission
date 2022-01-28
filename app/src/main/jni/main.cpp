@@ -15,6 +15,7 @@
 #include "Icon.h"
 	 
 #include <Substrate/SubstrateHook.h>
+#include <Substrate/CydiaSubstrate.h>
 
 #define libName OBFUSCATE("libil2cpp.so")
 
@@ -144,6 +145,7 @@ Java_com_android_support_Loader_Changes(
 }
 
 // ---------- Hooking ---------- //
+
 void *hack_thread(void *) {
     
     ProcMap il2cppMap;
@@ -155,7 +157,7 @@ void *hack_thread(void *) {
     LogShaders();
     Wallhack();
 
-	//Anti-lib rename
+	//Anti-lib rename :]
     do {
         sleep(1);
     } while (!isLibraryLoaded(OBFUSCATE("libDarkTeam.so")));

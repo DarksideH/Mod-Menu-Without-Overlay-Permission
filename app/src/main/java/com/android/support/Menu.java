@@ -75,7 +75,7 @@ public class Menu
         return textView;
     }
 	
-	public void SeekBar(final int featurenum, final String feature, final int prog, int max, final iit interInt) {
+	public void SeekBar(final int featNum, final String featName, final int prog, int max, final iit interInt) {
 			LinearLayout linearLayout = new LinearLayout(context);
 			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-1, -1);
 			linearLayout.setPadding(10, 5, 0, 5);
@@ -85,7 +85,7 @@ public class Menu
 
 			//Textview
 			final TextView textView = new TextView(context);				
-		    textView.setText(feature + " : " + prog);
+		    textView.setText(featName + " : " + prog);
 			textView.setTextSize(13.0f);
 			textView.setGravity(3);
 			textView.setTextColor(Color.WHITE);
@@ -119,7 +119,7 @@ public class Menu
 						l = i;					
 						interInt.OnWrite(i);
 						TextView textView = textView2;			
-						textView.setText(feature + " : " + i);
+						textView.setText(featName + " : " + i);
 					}
 				});
 			linearLayout.addView(textView);
@@ -289,7 +289,7 @@ public class Menu
 	{
         byte[] decode = Base64.decode(Icon, 0);
         iconView.setImageBitmap(BitmapFactory.decodeByteArray(decode, 0, decode.length));
-			iconView.setPadding(dpi(7), dpi(7), 0, 0);
+	    iconView.setPadding(dpi(7), dpi(7), 0, 0);
         iconView.setImageAlpha(200);
 	}
 	
@@ -378,7 +378,7 @@ public class Menu
 		HEIGHT = dpi(50);
 
 		final GradientDrawable menuGD = new GradientDrawable();
-		menuGD.setColor(Color.parseColor("#000000"));//#9A2D3133
+		menuGD.setColor(Color.parseColor("#9A2D3133"));//#9A2D3133
 		menuGD.setCornerRadius(50.0f);
 		
 		ValueAnimator colorAnim = ObjectAnimator.ofInt(title,"textColor", Color.rgb(0,255,255), Color.rgb(0,128,255), Color.rgb(0,0,255), Color.rgb(255,0,255));
@@ -447,10 +447,10 @@ public class Menu
 							{
 								showMenu();
 							}
-					            });
-				                  }               								
-				                }					 
-				             }		       
+						});
+				      }               								               
+				    }					 
+				  }		       
 		               
 		scrollItems = new ScrollView(context);
 
