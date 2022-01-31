@@ -1,7 +1,8 @@
 # Android-Mod-Menu-NoPermission-SYSTEM_ALERT_WINDOW
 This menu is very easy to inject into the game
  
-Inject : invoke-static {p0}, Lcom/android/support/Main;->Start(Landroid/content/Context;)V
+Inject :  invoke-static {p0}, Lcom/android/support/Loader;->Start(Landroid/content/Context;)V
+
 
 if you have problems compiling in AIDE then unpack build.zip. and place the folder in the app/build directory (folder)
 
