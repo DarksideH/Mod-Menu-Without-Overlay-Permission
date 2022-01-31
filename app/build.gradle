@@ -1,32 +1,39 @@
 apply plugin: 'com.android.application'
 
 android {
-packagingOptions {
-        pickFirst 'lib/armeabi-v7a/libmemoryhack.so'
-    }
     compileSdkVersion 30
-    buildToolsVersion "21.1.0"
-
     defaultConfig {
         applicationId "com.android.support"
-        minSdkVersion 14
-        targetSdkVersion 29
+        minSdkVersion 19
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
+        signingConfig signingConfigs.debug
     }
     buildTypes {
         release {
+            shrinkResources false
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            shrinkResources false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-}
-externalNativeBuild {
+    externalNativeBuild {
         ndkBuild {
             path file('src/main/jni/Android.mk')
         }
     }
-    ndkVersion = '21.3.6528147'
+    ndkVersion = '22.0.7026061'
+}
+
+//dependencies must be placed below 'android' brackets to get it work on AIDE
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 }

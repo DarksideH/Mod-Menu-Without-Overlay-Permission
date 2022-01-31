@@ -20,7 +20,7 @@
 #define libName OBFUSCATE("libil2cpp.so")
 
    struct My_Patches {   
-    MemoryPatch GodMode, GodMode2;
+    MemoryPatch GodMode;
 } hexPatches; 
 	
 	bool chams, shading, wireframe, glow, outline, rainbow;
@@ -158,11 +158,11 @@ void *hack_thread(void *) {
     Wallhack();
 
 	//Anti-lib rename :]
-    do {
-        sleep(1);
-    } while (!isLibraryLoaded(OBFUSCATE("libDarkTeam.so")));
+    //do {
+        //sleep(1);
+   // } while (!isLibraryLoaded(OBFUSCATE("libDarkTeam.so")));
 	
-    return NULL;
+ return NULL;
 }
     
 JNIEXPORT jint JNICALL

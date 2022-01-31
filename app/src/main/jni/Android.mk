@@ -8,18 +8,23 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := DarkTeam
 
 # Code optimization
+# -std=c++17 is required to support AIDE app with NDK
+LOCAL_CFLAGS := -Wno-error=format-security -fvisibility=hidden -ffunction-sections -fdata-sections -w
+LOCAL_CFLAGS += -fno-rtti -fno-exceptions -fpermissive
+LOCAL_CPPFLAGS := -Wno-error=format-security -fvisibility=hidden -ffunction-sections -fdata-sections -w -Werror -s -std=c++17
+LOCAL_CPPFLAGS += -Wno-error=c++11-narrowing -fms-extensions -fno-rtti -fno-exceptions -fpermissive
+LOCAL_LDFLAGS += -Wl,--gc-sections,--strip-all, -llog
 LOCAL_ARM_MODE := arm
-LOCAL_CFLAGS := -Wno-error=format-security -fpermissive -fvisibility=hidden -fvisibility-inlines-hidden
-LOCAL_CFLAGS += -fno-rtti -fno-exceptions -g0 -fomit-frame-pointer -ffunction-sections -fdata-sections
-LOCAL_CPPFLAGS += -fvisibility=hidden -ffunction-sections -fdata-sections
-LOCAL_LDFLAGS += -Wl,--strip-all
+
+LOCAL_C_INCLUDES += $(MAIN_LOCAL_PATH)
 
 # Here you add the cpp file
-LOCAL_C_INCLUDES += $(MAIN_LOCAL_PATH)
 LOCAL_SRC_FILES := main.cpp \
-    Substrate/SubstrateDebug.cpp \
+	Substrate/hde64.c \
+	Substrate/SubstrateDebug.cpp \
 	Substrate/SubstrateHook.cpp \
 	Substrate/SubstratePosixMemory.cpp \
+	Substrate/SymbolFinder.cpp \
 	KittyMemory/KittyMemory.cpp \
 	KittyMemory/MemoryPatch.cpp \
     KittyMemory/MemoryBackup.cpp \
