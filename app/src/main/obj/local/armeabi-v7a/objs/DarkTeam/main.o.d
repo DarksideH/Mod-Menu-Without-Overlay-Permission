@@ -67,10 +67,9 @@ src/main/obj/local/armeabi-v7a/objs/DarkTeam/main.o: \
   src/main/jni/KittyMemory/MemoryPatch.h \
   src/main/jni/KittyMemory/KittyUtils.h \
   src/main/jni/KittyMemory/KittyMemory.h \
-  src/main/jni/Includes/obfuscate.h src/main/jni/Includes/Chams.h \
-  src/main/jni/Substrate/SubstrateHook.h \
-  src/main/jni/Substrate/CydiaSubstrate.h src/main/jni/Includes/Utils.h \
-  src/main/jni/Icon.h
+  src/main/jni/Includes/obfuscate.h src/main/jni/Includes/Utils.h \
+  src/main/jni/Icon.h src/main/jni/Substrate/SubstrateHook.h \
+  src/main/jni/Substrate/CydiaSubstrate.h
 
 /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/list:
 
@@ -208,12 +207,10 @@ src/main/jni/KittyMemory/KittyMemory.h:
 
 src/main/jni/Includes/obfuscate.h:
 
-src/main/jni/Includes/Chams.h:
+src/main/jni/Includes/Utils.h:
+
+src/main/jni/Icon.h:
 
 src/main/jni/Substrate/SubstrateHook.h:
 
 src/main/jni/Substrate/CydiaSubstrate.h:
-
-src/main/jni/Includes/Utils.h:
-
-src/main/jni/Icon.h:

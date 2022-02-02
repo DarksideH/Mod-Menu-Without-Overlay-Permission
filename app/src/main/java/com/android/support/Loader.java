@@ -82,16 +82,15 @@ public class Loader
 						}
 					});                        
 			} else if (str.contains("Text_")) {
-                menu.addText(str.replace("Text_", ""));
-            } else if (str.contains("SeekBar_")) {
-             
-             menu.SeekBar(feature, split[1], Integer.parseInt(split[2]), Integer.parseInt(split[3]), new Menu.iit() {
-             public void OnWrite(int i) {
-             Changes(feature, i);
-             }
-           });
-         }
-       }
-     }
-   }
+                menu.addText(str.replace("Text_", ""));                                            
+			} else if (str.contains("SeekBar_")) {
 
+				menu.SeekBar(feature, split[1], Integer.parseInt(split[2]), Integer.parseInt(split[3]), new Menu.iit() {
+						public void OnWrite(int i) {
+							Changes(feature, i);
+						}
+					});
+			     }
+		      }
+	        }
+          }

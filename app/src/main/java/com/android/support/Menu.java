@@ -63,9 +63,9 @@ public class Menu
 		return alphaAnimation; 
 	}
 	
-	public TextView addText(String str) {
+	public TextView addText(String text) {
         TextView textView = new TextView(context);
-        textView.setText(Html.fromHtml("<u><b>" + str + "</b></u>"));
+        textView.setText(Html.fromHtml("<u><b>" + text + "</b></u>"));
         textView.setTextColor(Color.WHITE);
         textView.setTextSize(12.5f);
         textView.setGravity(3);
@@ -74,60 +74,60 @@ public class Menu
         getChildOfScroll().addView(textView);
         return textView;
     }
-	
+    
 	public void SeekBar(final int featNum, final String featName, final int prog, int max, final iit interInt) {
-			LinearLayout linearLayout = new LinearLayout(context);
-			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-1, -1);
-			linearLayout.setPadding(10, 5, 0, 5);
-			linearLayout.setOrientation(LinearLayout.VERTICAL);
-			linearLayout.setGravity(17);
-			linearLayout.setLayoutParams(layoutParams);
+		LinearLayout linearLayout = new LinearLayout(context);
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-1, -1);
+		linearLayout.setPadding(10, 5, 0, 5);
+		linearLayout.setOrientation(LinearLayout.VERTICAL);
+		linearLayout.setGravity(17);
+		linearLayout.setLayoutParams(layoutParams);
 
-			//Textview
-			final TextView textView = new TextView(context);				
-		    textView.setText(featName + " : " + prog);
-			textView.setTextSize(13.0f);
-			textView.setGravity(3);
-			textView.setTextColor(Color.WHITE);
-			textView.setLayoutParams(new LinearLayout.LayoutParams(-1, -2));
-			textView.setPadding(5, 0, 0, 0);
+		//Textview
+		final TextView textView = new TextView(context);				
+		textView.setText(featName + " : " + prog);
+		textView.setTextSize(13.0f);
+		textView.setGravity(3);
+		textView.setTextColor(Color.WHITE);
+		textView.setLayoutParams(new LinearLayout.LayoutParams(-1, -2));
+		textView.setPadding(5, 0, 0, 0);
 
 	    //Seekbar
         SeekBar SeekBar = new SeekBar(context);
         SeekBar.setMax(max);
 		SeekBar.getProgressDrawable().setColorFilter(Color.parseColor("#ffffffff"), PorterDuff.Mode.MULTIPLY);
         SeekBar.getThumb().setColorFilter(Color.parseColor("#ffffffff"), PorterDuff.Mode.MULTIPLY);
-			SeekBar.setPadding(25, 10, 35, 10);
-			SeekBar.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
-			LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(-1, -2);
-			layoutParams2.bottomMargin = 10;
-			SeekBar.setLayoutParams(layoutParams2);
-			SeekBar.setProgress(prog);
+		SeekBar.setPadding(25, 10, 35, 10);
+		SeekBar.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
+		LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(-1, -2);
+		layoutParams2.bottomMargin = 10;
+		SeekBar.setLayoutParams(layoutParams2);
+		SeekBar.setProgress(prog);
 
-			final TextView textView2 = textView;
-			SeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-					public void onStartTrackingTouch(SeekBar seekBar) {
-					}
+		final TextView textView2 = textView;
+		SeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+				public void onStartTrackingTouch(SeekBar seekBar) {
+				}
 
-					public void onStopTrackingTouch(SeekBar seekBar) {
+				public void onStopTrackingTouch(SeekBar seekBar) {
+				}
+
+				int l;
+				public void onProgressChanged(SeekBar seekBar, int i, boolean z) {
+					if (l < i) {            
 					}
-					
-					int l;
-					public void onProgressChanged(SeekBar seekBar, int i, boolean z) {
-						if (l < i) {            
-						}
-						l = i;					
-						interInt.OnWrite(i);
-						TextView textView = textView2;			
-						textView.setText(featName + " : " + i);
-					}
-				});
-			linearLayout.addView(textView);
-			linearLayout.addView(SeekBar);
-			getChildOfScroll().addView(linearLayout);
-         }
-    
-	public void ButtonOnOff(final int featNum, String feature, final ibt interfaceBtn) {
+					l = i;					
+					interInt.OnWrite(i);
+					TextView textView = textView2;			
+					textView.setText(featName + " : " + i);
+				}
+			});
+		linearLayout.addView(textView);
+		linearLayout.addView(SeekBar);
+		getChildOfScroll().addView(linearLayout);
+	}
+	
+	public void ButtonOnOff(final int featNum, String featName, final ibt interfaceBtn) {
 		final GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setShape(GradientDrawable.RECTANGLE);
         String str2 = "#ffffffff";
@@ -143,7 +143,7 @@ public class Menu
         final Button ButtonOnOff = new Button(context);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-1, -2);
         layoutParams.setMargins(7, 5, 7, 5);
-        ButtonOnOff.setText(feature);
+        ButtonOnOff.setText(featName);
         ButtonOnOff.setTextColor(Color.WHITE);
         ButtonOnOff.setTextSize(14.5f);
         ButtonOnOff.setAllCaps(false);
@@ -152,7 +152,7 @@ public class Menu
         ButtonOnOff.setPadding(3, 3, 3, 3);
         layoutParams2.bottomMargin = 0;
         ButtonOnOff.setLayoutParams(layoutParams2);
-        final String featName = feature;
+        final String finalfeatName = featName;
         ButtonOnOff.setOnClickListener(new View.OnClickListener() {
                 private boolean isActive = true;              
                 public void onClick(View v) {
@@ -162,13 +162,13 @@ public class Menu
                     }
                     interfaceBtn.OnWrite();
                     if (isActive) {
-                        ButtonOnOff.setText(Html.fromHtml("<b>" + featName + "</b>"));           
+                        ButtonOnOff.setText(Html.fromHtml("<b>" + finalfeatName + "</b>"));           
                         ButtonOnOff.setTextSize(15.5f);
                         ButtonOnOff.setBackgroundColor(Color.parseColor("#30FFFFFF"));
                         isActive = false;
                         return;
                     }
-                    ButtonOnOff.setText(featName);                 
+                    ButtonOnOff.setText(finalfeatName);                 
                     ButtonOnOff.setTextSize(15.0f);
                     ButtonOnOff.setBackgroundColor(Color.TRANSPARENT);
                     isActive = true;
@@ -177,7 +177,7 @@ public class Menu
 		getChildOfScroll().addView(ButtonOnOff);	
     }
 
-	public void Button(final int featNum, String feature, final ibt interfaceBtn) {
+	public void Button(final int featNum, String featName, final ibt interfaceBtn) {
 		final GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setShape(GradientDrawable.RECTANGLE);
         String str2 = "#ffffffff";
@@ -193,7 +193,7 @@ public class Menu
         final Button Button = new Button(context);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-1, -2);
         layoutParams.setMargins(7, 5, 7, 5);
-        Button.setText(feature);
+        Button.setText(featName);
         Button.setTextColor(Color.WHITE);
         Button.setTextSize(14.5f);
         Button.setAllCaps(false);
@@ -202,7 +202,7 @@ public class Menu
         Button.setPadding(3, 3, 3, 3);
         layoutParams2.bottomMargin = 0;
         Button.setLayoutParams(layoutParams2);
-        final String featName = feature;
+        final String finalfeatName = featName;
         Button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     switch (featNum) {
@@ -211,13 +211,13 @@ public class Menu
                     }
 					Button.setBackgroundColor(Color.parseColor("#30FFFFFF"));
 					Button.setTextSize(15.5f);
-					Button.setText(Html.fromHtml("<b>" + featName + "</b>"));
+					Button.setText(Html.fromHtml("<b>" + finalfeatName + "</b>"));
 					final  Handler handler = new Handler();
 					handler.postDelayed(new Runnable() {
 							@Override
 							public void run() {
 								Button.setBackgroundColor(Color.TRANSPARENT);
-								Button.setText(featName);
+								Button.setText(finalfeatName);
 								Button.setTextSize(14.5f);
 							}
 						},75);				
@@ -272,9 +272,9 @@ public class Menu
 			aditionalFlags = aditionalFlags | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
 		    wmParams = new WindowManager.LayoutParams(
 			WindowManager.LayoutParams.WRAP_CONTENT,
-			WindowManager.LayoutParams.WRAP_CONTENT,
-			10,//initialX
-			80,//initialY
+			WindowManager.LayoutParams.WRAP_CONTENT,		
+			1,//initialX
+			155,//initialY
 			WindowManager.LayoutParams.TYPE_APPLICATION,
 			WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
 			WindowManager.LayoutParams.FLAG_LAYOUT_IN_OVERSCAN |
@@ -353,8 +353,6 @@ public class Menu
 	}
 
 	public void showMenu() {
-		iconView.setAnimation(fadein()); //Remove the icon
-		menulayout.setAnimation(fadeout()); //Opening the menu
 		if (!isMenuVisible)
 		{
 			isIconVisible = false;
@@ -377,9 +375,9 @@ public class Menu
 		WIDTH = dpi(100);
 		HEIGHT = dpi(50);
 
-		final GradientDrawable menuGD = new GradientDrawable();
-		menuGD.setColor(Color.parseColor("#9A2D3133"));//#9A2D3133
-		menuGD.setCornerRadius(50.0f);
+		final GradientDrawable gdMenuBody = new GradientDrawable();
+		gdMenuBody.setColor(Color.parseColor("#9A2D3133"));//#9A2D3133
+		gdMenuBody.setCornerRadius(50.0f);
 		
 		ValueAnimator colorAnim = ObjectAnimator.ofInt(title,"textColor", Color.rgb(0,255,255), Color.rgb(0,128,255), Color.rgb(0,0,255), Color.rgb(255,0,255));
 		colorAnim.setDuration(4000);
@@ -389,7 +387,7 @@ public class Menu
         colorAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 				@Override
 				public void onAnimationUpdate(ValueAnimator animator) {
-					menuGD.setStroke(3,(int) animator.getAnimatedValue());
+					gdMenuBody.setStroke(3,(int) animator.getAnimatedValue());
 				}
 			});
         colorAnim.start();
@@ -401,7 +399,7 @@ public class Menu
 
 			menulayout.addView(headerLayout, -1, -2);
 			//MENU BG COLOR
-			menulayout.setBackground(menuGD);
+			menulayout.setBackground(gdMenuBody);
 			{
 				ImageView minimize=new ImageView(context);
 				InputStream istr = null;
@@ -420,7 +418,6 @@ public class Menu
 				{
 					minimize.setImageBitmap(bitmap);
 				}
-				title.setTextColor(Color.RED);
 				title.setTextSize(19);
 				title.setGravity(Gravity.CENTER_HORIZONTAL);
 				{

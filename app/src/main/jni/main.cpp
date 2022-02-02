@@ -10,7 +10,6 @@
 #include <dlfcn.h>
 #include "KittyMemory/MemoryPatch.h"
 #include "Includes/obfuscate.h"
-#include "Includes/Chams.h"
 #include "Includes/Utils.h"
 #include "Icon.h"
 	 
@@ -22,8 +21,6 @@
    struct My_Patches {   
     MemoryPatch GodMode;
 } hexPatches; 
-	
-	bool chams, shading, wireframe, glow, outline, rainbow;
     
 extern "C" {	
 	
@@ -39,7 +36,7 @@ extern "C" {
     Java_com_android_support_Loader_setHeadingText(
         JNIEnv *env,
         jobject activityObject) {
-    jstring str = env->NewStringUTF(OBFUSCATE("Private Mod Menu | by Darkside"));
+    jstring str = env->NewStringUTF(OBFUSCATE("No Permission Mod Menu | by Darkside"));
         return str;
     }
 
@@ -49,17 +46,10 @@ Java_com_android_support_Loader_getFeatures(
     jobject activityObject) {
     jobjectArray ret;
     const char *features[] = {          	   
-            OBFUSCATE("Text_Chams Menu︎"), //0
-            OBFUSCATE("ButtonOnOff_Default Chams"),//1
-            OBFUSCATE("ButtonOnOff_Shading Chams"), //2
-            OBFUSCATE("ButtonOnOff_Wireframe Chams"),//3
-            OBFUSCATE("ButtonOnOff_Glow Chams"),//4
-            OBFUSCATE("ButtonOnOff_Outline Chams"), //5
-            OBFUSCATE("ButtonOnOff_Rainbow Chams"), //6         
-            OBFUSCATE("SeekBar_Line Width_0_12"),//8
-            OBFUSCATE("SeekBar_Color R_0_255"),//9
-            OBFUSCATE("SeekBar_Color G_0_255"),//10
-            OBFUSCATE("SeekBar_Color B_0_255"),//11
+            OBFUSCATE("Text_The Text︎"),//0
+            OBFUSCATE("ButtonOnOff_ The ButtonOnOff"),//1   
+			OBFUSCATE("Button_Button"),//2  
+            OBFUSCATE("SeekBar_The SeekBar_0_12"),//3          
             OBFUSCATE("Hide_Icon invisible"),          
             };
 
@@ -82,64 +72,6 @@ Java_com_android_support_Loader_Changes(
         jint value) {
         switch (feature) {
         case 1:
-        chams = !chams;
-        if (chams) {
-        SetWallhack(true);
-        } else {
-        SetWallhack(false);
-        }
-        break;
-        case 2:
-        shading = !shading;
-        if (shading) {
-        SetWallhackS(true);
-        } else {
-        SetWallhackS(false);
-        }
-        break;
-        case 3:
-        wireframe = !wireframe;
-        if (wireframe) {
-        SetWallhackW(true);  
-        } else {
-        SetWallhackW(false);  
-        }
-        break;
-        case 4:
-        glow = !glow;
-        if (glow) {
-        SetWallhackG(true);
-        } else {
-        SetWallhackG(false);
-        }
-        break;
-        case 5:
-        outline = !outline;
-        if (outline) {
-        SetWallhackO(true); 
-        } else {
-        SetWallhackO(false);
-        }
-        break;
-        case 6:
-        rainbow = !rainbow;
-        if (rainbow) {
-        SetRainbow(true);
-        } else {
-        SetRainbow(false);
-        }
-        break;    
-        case 8:
-        SetW(value);
-        break;      
-        case 9:
-        SetR(value);
-        break;
-        case 10:
-        SetG(value);
-        break;
-        case 11:
-        SetB(value);
         break; 
 	}
 }
@@ -147,35 +79,17 @@ Java_com_android_support_Loader_Changes(
 // ---------- Hooking ---------- //
 
 void *hack_thread(void *) {
-    
-    ProcMap il2cppMap;
     do {
-        il2cppMap = KittyMemory::getLibraryMap(libName);
         sleep(1);
-    } while (!il2cppMap.isValid() && mlovinit());
-    setShader("_BumpMap");
-    LogShaders();
-    Wallhack();
-
-	//Anti-lib rename :]
-    //do {
-        //sleep(1);
-   // } while (!isLibraryLoaded(OBFUSCATE("libDarkTeam.so")));
+    } while (!isLibraryLoaded(libName));
 	
  return NULL;
 }
     
-JNIEXPORT jint JNICALL
-JNI_OnLoad(JavaVM *vm, void *reserved) {
-    JNIEnv *globalEnv;
-    vm->GetEnv((void **) &globalEnv, JNI_VERSION_1_6);
+__attribute__((constructor))
+void lib_main() {
 
     pthread_t ptid;
     pthread_create(&ptid, NULL, hack_thread, NULL);
-
-    return JNI_VERSION_1_6;
-}
-
-JNIEXPORT void JNICALL
-JNI_OnUnload(JavaVM *vm, void *reserved) {}
+  }
 }
