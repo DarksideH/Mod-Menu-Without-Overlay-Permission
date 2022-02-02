@@ -48,7 +48,7 @@ Java_com_android_support_Loader_getFeatures(
     const char *features[] = {          	   
             OBFUSCATE("Text_The Text︎"),//0
             OBFUSCATE("ButtonOnOff_ The ButtonOnOff"),//1   
-			OBFUSCATE("Button_Button"),//2  
+	    OBFUSCATE("Button_Button"),//2  
             OBFUSCATE("SeekBar_The SeekBar_0_12"),//3          
             OBFUSCATE("Hide_Icon invisible"),          
             };
