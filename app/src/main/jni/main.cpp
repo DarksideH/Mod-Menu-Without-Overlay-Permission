@@ -50,9 +50,9 @@ Java_com_android_support_Loader_getFeatures(
             OBFUSCATE("ButtonOnOff_ The Button On and Off"),//1   
 	        OBFUSCATE("Button_The Button"),//2  
             OBFUSCATE("SeekBar_The SeekBar_0_12"),//3     
-			OBFUSCATE("Text_Hide && icon"),
+			OBFUSCATE("Text_Hide && icon"),//4
             OBFUSCATE("Hide_Icon invisible"),   
-			OBFUSCATE("Close_Close menu"),   
+			OBFUSCATE("Close_Close menu"),  
             };
 
     int Total_Feature = (sizeof features /
