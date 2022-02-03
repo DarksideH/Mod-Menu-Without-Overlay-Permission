@@ -4,7 +4,7 @@ include $(CLEAR_VARS)
 # Here is the name of your lib.
 # When you change the lib name, change also on System.loadLibrary("") under OnCreate method on StaticActivity.java
 # Both must have same name
-LOCAL_MODULE    := DarkTeam
+LOCAL_MODULE := DarkTeam
 
 # -std=c++17 is required to support AIDE app with NDK
 LOCAL_CFLAGS := -w -s -Wno-error=format-security -fvisibility=hidden -fpermissive -fexceptions

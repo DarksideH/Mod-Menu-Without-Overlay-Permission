@@ -1,13 +1,14 @@
 src/main/obj/local/armeabi-v7a/objs/DarkTeam/KittyMemory/KittyMemory.o: \
   src/main/jni/KittyMemory/KittyMemory.cpp \
-  src/main/jni/Includes/obfuscate.h \
-  /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/cstddef \
+  src/main/jni/KittyMemory/KittyMemory.h \
+  /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/stdio.h \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/__config \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/string \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/string_view \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/__string \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/algorithm \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/initializer_list \
+  /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/cstddef \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/cstring \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/string.h \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/utility \
@@ -30,21 +31,19 @@ src/main/obj/local/armeabi-v7a/objs/DarkTeam/KittyMemory/KittyMemory.o: \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/cassert \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/atomic \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/cstdio \
-  /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/stdio.h \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/cwchar \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/cwctype \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/cctype \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/ctype.h \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/wctype.h \
-  src/main/jni/KittyMemory/KittyMemory.h \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/vector \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/__bit_reference \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/climits \
   /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/__split_buffer
 
-src/main/jni/Includes/obfuscate.h:
+src/main/jni/KittyMemory/KittyMemory.h:
 
-/data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/cstddef:
+/data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/stdio.h:
 
 /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/__config:
 
@@ -57,6 +56,8 @@ src/main/jni/Includes/obfuscate.h:
 /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/algorithm:
 
 /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/initializer_list:
+
+/data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/cstddef:
 
 /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/cstring:
 
@@ -102,8 +103,6 @@ src/main/jni/Includes/obfuscate.h:
 
 /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/cstdio:
 
-/data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/stdio.h:
-
 /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/cwchar:
 
 /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/cwctype:
@@ -113,8 +112,6 @@ src/main/jni/Includes/obfuscate.h:
 /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/ctype.h:
 
 /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/wctype.h:
-
-src/main/jni/KittyMemory/KittyMemory.h:
 
 /data/data/com.aide.ui.crustacean/no_backup/ndksupport-1710240003/android-ndk-aide/sources/cxx-stl/llvm-libc++/include/vector:
 

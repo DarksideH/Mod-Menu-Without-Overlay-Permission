@@ -13,6 +13,7 @@ import android.text.*;
 import android.view.Window.*; 
 import android.text.method.*;
 import android.graphics.Typeface;
+import android.view.MotionEvent;
 import android.util.*;
 import android.view.*;
 import android.widget.*;
@@ -27,15 +28,15 @@ public class Menu
 	protected Context context;
 	protected boolean isIconVisible;
 	protected boolean isMenuVisible;
-	protected ImageView iconView,closeView;
+	protected ImageView iconView;
 	protected FrameLayout parentBox;
 	protected LinearLayout menulayout;  
 	protected ScrollView scrollItems;    
 	
 	protected TextView title;
 
-	protected WindowManager wmManager;
-	protected WindowManager.LayoutParams wmParams;
+	protected WindowManager mWindowManager;
+	protected WindowManager.LayoutParams params;
 	protected LinearLayout headerLayout;
 
 	protected LinearLayout childOfScroll;
@@ -226,6 +227,54 @@ public class Menu
             });
 		getChildOfScroll().addView(Button);
     }	
+	
+	public void CloseButton(final int featNum, String featName, final ibt interfaceBtn) {
+		final GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setShape(GradientDrawable.RECTANGLE);
+        String str2 = "#ffffffff";
+        gradientDrawable.setColor(Color.parseColor(str2));
+        gradientDrawable.setStroke(3, Color.parseColor(str2));
+        gradientDrawable.setCornerRadius(10.0f);
+        final GradientDrawable gradientDrawable2 = new GradientDrawable();
+        gradientDrawable2.setShape(GradientDrawable.RECTANGLE);
+        gradientDrawable2.setColor(0);
+        gradientDrawable2.setStroke(3, Color.parseColor(str2));
+        gradientDrawable2.setCornerRadius(10.0f);
+
+        final Button CloseButton = new Button(context);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-1, -2);
+        layoutParams.setMargins(7, 5, 7, 5);
+        CloseButton.setText(featName);
+        CloseButton.setTextColor(Color.WHITE);
+        CloseButton.setTextSize(14.5f);
+        CloseButton.setAllCaps(false);
+        CloseButton.setBackgroundColor(Color.TRANSPARENT);
+        LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(-1, dpi(40));
+        CloseButton.setPadding(3, 3, 3, 3);
+        layoutParams2.bottomMargin = 0;
+        CloseButton.setLayoutParams(layoutParams2);
+        final String finalfeatName = featName;
+        CloseButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {                  		
+					CloseButton.setBackgroundColor(Color.parseColor("#30FFFFFF"));
+					CloseButton.setTextSize(15.5f);
+					CloseButton.setText(Html.fromHtml("<b>" + finalfeatName + "</b>"));
+					final  Handler handler = new Handler();
+					handler.postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								CloseButton.setBackgroundColor(Color.TRANSPARENT);
+								CloseButton.setText(finalfeatName);
+								CloseButton.setTextSize(14.5f);
+								showIcon(); 
+							}
+						},75);				
+                    interfaceBtn.OnWrite();
+                }  
+            });
+		getChildOfScroll().addView(CloseButton);
+    }	
+	
 
 	public LinearLayout getInfosLayout()
 	{
@@ -252,25 +301,38 @@ public class Menu
 		return scrollItems;
 	}
 
+	public TextView getTitleTextView()
+	{
+		return title;
+	}
+	
+	public int getWidth(int px)
+	{
+		return WIDTH;
+	}
+
+	public int getHeight(int px)
+	{
+		return HEIGHT;
+	}
+	
 	protected void init(Context context)
 	{
 		this.context = context;
-		isIconVisible = false;
-		isMenuVisible = false;
 		iconView = new ImageView(context);
-		closeView = new ImageView(context);
 		title = new TextView(context);
 
 		parentBox = new FrameLayout(context);
 
-		parentBox.setOnTouchListener(handleMotionTouch);
-		wmManager = ((Activity)context).getWindowManager();
-		int aditionalFlags=0;
+		parentBox.setOnTouchListener(onTouchListener);
+		mWindowManager = ((Activity)context).getWindowManager();
+		
+		int aditionalFlags = 0;
 		if (Build.VERSION.SDK_INT >= 11)
 			aditionalFlags = WindowManager.LayoutParams.FLAG_SPLIT_TOUCH;
 		if (Build.VERSION.SDK_INT >=  3)
 			aditionalFlags = aditionalFlags | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
-		    wmParams = new WindowManager.LayoutParams(
+		    params = new WindowManager.LayoutParams(
 			WindowManager.LayoutParams.WRAP_CONTENT,
 			WindowManager.LayoutParams.WRAP_CONTENT,		
 			1,//initialX
@@ -282,7 +344,7 @@ public class Menu
 			aditionalFlags,
 			PixelFormat.TRANSPARENT
 		);
-		wmParams.gravity = Gravity.TOP | Gravity.LEFT;
+		params.gravity = Gravity.TOP | Gravity.LEFT;
 	}
 
 	public void setIconImage(String Icon)
@@ -295,7 +357,7 @@ public class Menu
 	
 	public void setWidth(int px)
 	{
-		FrameLayout.LayoutParams lp=(FrameLayout.LayoutParams)menulayout.getLayoutParams();
+		FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams)menulayout.getLayoutParams();
 		lp.width = px;
 		menulayout.setLayoutParams(lp);
 		WIDTH = px;
@@ -303,51 +365,33 @@ public class Menu
 	
 	public void setHeight(int px)
 	{
-		FrameLayout.LayoutParams lp=(FrameLayout.LayoutParams)menulayout.getLayoutParams();
+		FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams)menulayout.getLayoutParams();
 		lp.height = px;
 		menulayout.setLayoutParams(lp);
 		HEIGHT = px;
 	}
-	public int getWidth(int px)
-	{
-		return WIDTH;
-	}
-
-	public int getHeight(int px)
-	{
-		return HEIGHT;
-	}
     
 	public void setTitle(String text)
 	{
-		title.setText(text);
-		title.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View p1)
-                {
-                    showIcon();                
-                }
-            }); 
-	     }
-          
-	public TextView getTitleTextView()
-	{
-		return title;
+		title.setText(text);	
+		title.setTextSize(19);
+		title.setGravity(Gravity.CENTER_HORIZONTAL);
 	}
 
 	public void showIcon() {
         iconView.setAnimation(fadeout());//The appearance of the icon
+        
 		if (Loader.hide) {
 			iconView.setVisibility(View.INVISIBLE);
 		} else if (!Loader.hide) {            
 			iconView.setVisibility(View.VISIBLE);
 		}
+		
 		if (!isIconVisible)
 		{
 			isMenuVisible = false;
 			parentBox.removeAllViews();
-			parentBox.addView(iconView, dpi(70),dpi(70));
-			parentBox.addView(closeView,dpi(20),dpi(20));
+			parentBox.addView(iconView, dpi(70),dpi(70));		
 			isIconVisible = true;
 		}
 	}
@@ -376,7 +420,7 @@ public class Menu
 		HEIGHT = dpi(50);
 
 		final GradientDrawable gdMenuBody = new GradientDrawable();
-		gdMenuBody.setColor(Color.parseColor("#9A2D3133"));//#9A2D3133
+		gdMenuBody.setColor(Color.parseColor("#9A2D3133"));
 		gdMenuBody.setCornerRadius(50.0f);
 		
 		ValueAnimator colorAnim = ObjectAnimator.ofInt(title,"textColor", Color.rgb(0,255,255), Color.rgb(0,128,255), Color.rgb(0,0,255), Color.rgb(255,0,255));
@@ -390,6 +434,7 @@ public class Menu
 					gdMenuBody.setStroke(3,(int) animator.getAnimatedValue());
 				}
 			});
+			
         colorAnim.start();
 
 		menulayout = new LinearLayout(context);
@@ -401,7 +446,7 @@ public class Menu
 			//MENU BG COLOR
 			menulayout.setBackground(gdMenuBody);
 			{
-				ImageView minimize=new ImageView(context);
+				ImageView minimize = new ImageView(context);
 				InputStream istr = null;
 				Bitmap bitmap = null;
 				AssetManager assetManager = context.getAssets();
@@ -418,19 +463,18 @@ public class Menu
 				{
 					minimize.setImageBitmap(bitmap);
 				}
-				title.setTextSize(19);
-				title.setGravity(Gravity.CENTER_HORIZONTAL);
+				
 				{
 					infos = new LinearLayout(context);
 					infos.setOrientation(LinearLayout.VERTICAL);
 					infos.addView(title,-1,-1);
 					headerLayout.addView(infos, -1, -1);
-					LinearLayout.LayoutParams mnp=(LinearLayout.LayoutParams)infos.getLayoutParams();
+					LinearLayout.LayoutParams mnp = (LinearLayout.LayoutParams)infos.getLayoutParams();
 					mnp.weight = 10;
 					mnp.gravity = Gravity.CENTER;
 					infos.setLayoutParams(mnp);
 				}
-				headerLayout.addView(minimize, dpi(25),dpi(25));
+				headerLayout.addView(minimize, dpi(35),dpi(35));
 				{
 					LinearLayout.LayoutParams mnp = (LinearLayout.LayoutParams)minimize.getLayoutParams();
 					mnp.weight = 0;
@@ -442,7 +486,7 @@ public class Menu
 							@Override
 							public void onClick(View p1)
 							{
-								showMenu();
+								//showMenu();
 							}
 						});
 				      }               								               
@@ -459,42 +503,44 @@ public class Menu
 		childOfScroll.setOrientation(LinearLayout.VERTICAL);
 		childOfScroll.setBackgroundColor(Color.TRANSPARENT);
 		menulayout.addView(scrollItems, -1, -1);
-		wmManager.addView(parentBox, wmParams);
+		mWindowManager.addView(parentBox, params);
 		showMenu();
         showIcon();
 	}
 
-	View.OnTouchListener handleMotionTouch = new View.OnTouchListener()
+	View.OnTouchListener onTouchListener = new View.OnTouchListener()
 	{
-		private float initX;          
-		private float initY;
+		private float initialX;          
+		private float initialY;
 		
-		private float touchX;
-		private float touchY;
-
+		private float initialTouchX;
+		private float initialTouchY;
+		
 		double clock = 0;
+		
 		@Override
-		public boolean onTouch(View vw, MotionEvent ev)
+		public boolean onTouch(View view, MotionEvent motionEvent)
 		{
-			switch (ev.getAction())
+			switch (motionEvent.getAction())
 			{
 				case MotionEvent.ACTION_DOWN:
 
-					initX = wmParams.x;
-					initY = wmParams.y;
+					initialX = params.x;
+					initialY = params.y;
 					
-					touchX = ev.getRawX();
-					touchY = ev.getRawY();
+					initialTouchX = motionEvent.getRawX();
+					initialTouchY = motionEvent.getRawY();			
 					
 					clock = System.currentTimeMillis();
+					
 					break;
 
 				case MotionEvent.ACTION_MOVE:
 					
-					wmParams.x = (int)initX + (int)(ev.getRawX() - touchX);
-					wmParams.y = (int)initY + (int)(ev.getRawY() - touchY);
+				    params.x = (int)initialX + (int)(motionEvent.getRawX() - initialTouchX);
+					params.y = (int)initialY + (int)(motionEvent.getRawY() - initialTouchY);
 
-					wmManager.updateViewLayout(vw, wmParams);
+					mWindowManager.updateViewLayout(parentBox, params);
 					break;
 
 				case MotionEvent.ACTION_UP:

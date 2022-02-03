@@ -47,10 +47,12 @@ Java_com_android_support_Loader_getFeatures(
     jobjectArray ret;
     const char *features[] = {          	   
             OBFUSCATE("Text_The Text︎"),//0
-            OBFUSCATE("ButtonOnOff_ The ButtonOnOff"),//1   
-	    OBFUSCATE("Button_The Button"),//2  
-            OBFUSCATE("SeekBar_The SeekBar_0_12"),//3          
-            OBFUSCATE("Hide_Icon invisible"),          
+            OBFUSCATE("ButtonOnOff_ The Button On and Off"),//1   
+	        OBFUSCATE("Button_The Button"),//2  
+            OBFUSCATE("SeekBar_The SeekBar_0_12"),//3     
+			OBFUSCATE("Text_Hide && icon"),
+            OBFUSCATE("Hide_Icon invisible"),   
+			OBFUSCATE("Close_Close menu"),   
             };
 
     int Total_Feature = (sizeof features /
@@ -78,10 +80,14 @@ Java_com_android_support_Loader_Changes(
 
 // ---------- Hooking ---------- //
 
+
+
 void *hack_thread(void *) {
     do {
         sleep(1);
     } while (!isLibraryLoaded(libName));
+	
+	
 	
  return NULL;
 }

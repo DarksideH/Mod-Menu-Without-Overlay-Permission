@@ -15,7 +15,6 @@ import android.R;
 import android.net.Uri;
 import javax.security.auth.Destroyable;
 import java.util.regex.MatchResult;
-import android.transition.AutoTransition;
 import java.io.UnsupportedEncodingException;
 
 public class Loader 
@@ -28,9 +27,12 @@ public class Loader
     private static native String[] getFeatures();
 	
 	public static boolean hide;
+	public static boolean close;
+	
     private static native String Icon();
     public static native String setTitleText();
     private static native String setHeadingText();
+	
 	public static void Start(final Context context)
 	{
         System.loadLibrary("DarkTeam");
@@ -52,17 +54,18 @@ public class Loader
 		menu.setIconImage(Icon());
 		menu.setTitle(setTitleText());
         
-        TextView BB = new TextView(context);
-        BB.setText(Html.fromHtml(setHeadingText()));
-        BB.setTextColor(Color.WHITE);
-        BB.setTextSize(13.5f);
-        BB.setGravity(Gravity.CENTER);
-		menu.getChildOfScroll().addView(BB);
+        TextView Title = new TextView(context);
+        Title.setText(Html.fromHtml(setHeadingText()));
+        Title.setTextColor(Color.WHITE);
+        Title.setTextSize(13.5f);
+        Title.setGravity(Gravity.CENTER);
+		menu.getChildOfScroll().addView(Title);
 		String[] listFT = getFeatures();
         for (int i = 0; i < listFT.length; i++) {
             final int feature = i;
             String str = listFT[i];
             String[] split = str.split("_");
+			
             if (str.contains("ButtonOnOff_")) {
                 menu.ButtonOnOff(feature, split[1], new Menu.ibt() {
 						public void OnWrite() {
@@ -80,7 +83,13 @@ public class Loader
 						public void OnWrite() {
 							hide = !hide;
 						}
-					});                        
+					});              
+			} else if (str.contains("Close_")) {
+                menu.CloseButton(feature, split[1], new Menu.ibt() {
+						public void OnWrite() {
+							close = !close;
+						}
+					});     
 			} else if (str.contains("Text_")) {
                 menu.addText(str.replace("Text_", ""));                                            
 			} else if (str.contains("SeekBar_")) {
