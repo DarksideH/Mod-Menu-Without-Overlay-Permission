@@ -7,7 +7,6 @@ import android.content.res.*;
 import android.graphics.*;
 import android.graphics.drawable.*;
 import android.os.*;
-import android.view.inputmethod.InputMethodManager;
 import com.android.support.*;
 import android.text.*;
 import android.view.Window.*; 
@@ -388,20 +387,20 @@ public class Menu
 		}
 		
 		if (!isIconVisible)
-		{
-			isMenuVisible = false;
+		{		
 			parentBox.removeAllViews();
-			parentBox.addView(iconView, dpi(70),dpi(70));		
+			parentBox.addView(iconView, dpi(70),dpi(70));	
+            isMenuVisible = false;
 			isIconVisible = true;
 		}
 	}
 
 	public void showMenu() {
 		if (!isMenuVisible)
-		{
-			isIconVisible = false;
+		{		
 			parentBox.removeAllViews();
 			parentBox.addView(menulayout, WIDTH, HEIGHT);
+            isIconVisible = false;
 			isMenuVisible = true;          	
 	     }
       }
@@ -481,17 +480,9 @@ public class Menu
 					mnp.gravity = Gravity.RIGHT;
 					minimize.setLayoutParams(mnp);
 					minimize.setPadding(0, dpi(10), dpi(10), dpi(10));
-					minimize.setOnClickListener(new View.OnClickListener(){
-
-							@Override
-							public void onClick(View p1)
-							{
-								//showMenu();
-							}
-						});
-				      }               								               
-				    }					 
-				  }		       
+				  }               								               
+			    }					 
+		     }		       
 		               
 		scrollItems = new ScrollView(context);
 

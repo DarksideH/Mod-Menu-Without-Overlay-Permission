@@ -24,14 +24,14 @@ public class Loader
 	
 	public static native void Changes(int feature, int value);
 
-    private static native String[] getFeatures();
+    native String[] GetFeatureList();
 	
 	public static boolean hide;
 	public static boolean close;
 	
-    private static native String Icon();
-    public static native String setTitleText();
-    private static native String setHeadingText();
+    native String Icon();
+    native String setTitleText();
+    native String setHeadingText();
 	
 	public static void Start(final Context context)
 	{
@@ -50,7 +50,7 @@ public class Loader
 		Loader.context = context;
 		Menu menu = new Menu(context);
 		menu.setWidth(menu.dpi(300));
-		menu.setHeight(menu.dpi(240));
+		menu.setHeight(menu.dpi(250));
 		menu.setIconImage(Icon());
 		menu.setTitle(setTitleText());
         
@@ -60,7 +60,7 @@ public class Loader
         Title.setTextSize(13.5f);
         Title.setGravity(Gravity.CENTER);
 		menu.getChildOfScroll().addView(Title);
-		String[] listFT = getFeatures();
+		String[] listFT = GetFeatureList();
         for (int i = 0; i < listFT.length; i++) {
             final int feature = i;
             String str = listFT[i];

@@ -9,14 +9,13 @@
 #include <iostream>
 #include <dlfcn.h>
 #include "KittyMemory/MemoryPatch.h"
-#include "Includes/obfuscate.h"
 #include "Includes/Utils.h"
 #include "Icon.h"
 	 
 #include <Substrate/SubstrateHook.h>
 #include <Substrate/CydiaSubstrate.h>
 
-#define libName OBFUSCATE("libil2cpp.so")
+#define libName "libil2cpp.so"
 
    struct My_Patches {   
     MemoryPatch GodMode;
@@ -28,7 +27,7 @@ extern "C" {
     Java_com_android_support_Loader_setTitleText(
         JNIEnv *env,
         jobject activityObject) {
-    jstring str = env->NewStringUTF(OBFUSCATE("     Modded by Darkside"));
+    jstring str = env->NewStringUTF("     Modded by Darkside");
         return str;
     }
 
@@ -36,23 +35,23 @@ extern "C" {
     Java_com_android_support_Loader_setHeadingText(
         JNIEnv *env,
         jobject activityObject) {
-    jstring str = env->NewStringUTF(OBFUSCATE("No Permission Mod Menu | by Darkside"));
+    jstring str = env->NewStringUTF("No Permission Mod Menu | by Darkside");
         return str;
     }
 
 JNIEXPORT jobjectArray  JNICALL
-Java_com_android_support_Loader_getFeatures(
+Java_com_android_support_Loader_GetFeatureList(
     JNIEnv *env,
     jobject activityObject) {
     jobjectArray ret;
     const char *features[] = {          	   
-            OBFUSCATE("Text_The Text︎"),//0
-            OBFUSCATE("ButtonOnOff_ The Button On and Off"),//1   
-	        OBFUSCATE("Button_The Button"),//2  
-            OBFUSCATE("SeekBar_The SeekBar_0_12"),//3     
-			OBFUSCATE("Text_Hide && icon"),//4
-            OBFUSCATE("Hide_Icon invisible"),   
-			OBFUSCATE("Close_Close menu"),  
+              "Text_The Text︎",//0
+              "ButtonOnOff_The On/Off button",//1   
+	          "Button_The Button",//2  
+              "SeekBar_The SeekBar_0_12",//3     
+			  "Text_Hide && icon",//4
+              "Hide_Icon invisible",   
+			  "Close_Close menu",  
             };
 
     int Total_Feature = (sizeof features /
@@ -74,20 +73,14 @@ Java_com_android_support_Loader_Changes(
         jint value) {
         switch (feature) {
         case 1:
-        break; 
+          break; 
 	}
 }
-
-// ---------- Hooking ---------- //
-
-
 
 void *hack_thread(void *) {
     do {
         sleep(1);
     } while (!isLibraryLoaded(libName));
-	
-	
 	
  return NULL;
 }
