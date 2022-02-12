@@ -45,7 +45,7 @@ public class Menu
     static int dur; 
 	public static int one; 
 	public static int zero;
-	static final { 
+	static { 
 		dur = 400; 
 		zero = 0; 
 		one = 1; 
