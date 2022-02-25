@@ -274,7 +274,6 @@ public class Menu
 		getChildOfScroll().addView(CloseButton);
     }	
 	
-
 	public LinearLayout getInfosLayout()
 	{
 		return infos;
@@ -322,9 +321,7 @@ public class Menu
 		title = new TextView(context);
 
 		parentBox = new FrameLayout(context);
-
 		parentBox.setOnTouchListener(onTouchListener);
-		mWindowManager = ((Activity)context).getWindowManager();
 		
 		int aditionalFlags = 0;
 		if (Build.VERSION.SDK_INT >= 11)
@@ -339,8 +336,7 @@ public class Menu
 			WindowManager.LayoutParams.TYPE_APPLICATION,
 			WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
 			WindowManager.LayoutParams.FLAG_LAYOUT_IN_OVERSCAN |
-			WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN |
-			aditionalFlags,
+			WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | aditionalFlags,
 			PixelFormat.TRANSPARENT
 		);
 		params.gravity = Gravity.TOP | Gravity.LEFT;
@@ -378,7 +374,6 @@ public class Menu
 	}
 
 	public void showIcon() {
-        iconView.setAnimation(fadeout());//The appearance of the icon
         
 		if (Loader.hide) {
 			iconView.setVisibility(View.INVISIBLE);
@@ -437,13 +432,12 @@ public class Menu
         colorAnim.start();
 
 		menulayout = new LinearLayout(context);
+	    menulayout.setBackground(gdMenuBody);
 		menulayout.setOrientation(LinearLayout.VERTICAL);
-		{//header
+		{
 			headerLayout = new LinearLayout(context);
 
-			menulayout.addView(headerLayout, -1, -2);
-			//MENU BG COLOR
-			menulayout.setBackground(gdMenuBody);
+			menulayout.addView(headerLayout, -1, -2);			
 			{
 				ImageView minimize = new ImageView(context);
 				InputStream istr = null;
@@ -468,8 +462,7 @@ public class Menu
 					infos.setOrientation(LinearLayout.VERTICAL);
 					infos.addView(title,-1,-1);
 					headerLayout.addView(infos, -1, -1);
-					LinearLayout.LayoutParams mnp = (LinearLayout.LayoutParams)infos.getLayoutParams();
-					mnp.weight = 10;
+					LinearLayout.LayoutParams mnp = (LinearLayout.LayoutParams)infos.getLayoutParams();			
 					mnp.gravity = Gravity.CENTER;
 					infos.setLayoutParams(mnp);
 				}
@@ -491,12 +484,17 @@ public class Menu
         scrollItems.setVerticalScrollBarEnabled(false);
         scrollItems.setOverScrollMode(View.OVER_SCROLL_NEVER);
 		scrollItems.addView(childOfScroll, -1, -1);
+        
 		childOfScroll.setOrientation(LinearLayout.VERTICAL);
 		childOfScroll.setBackgroundColor(Color.TRANSPARENT);
+        
 		menulayout.addView(scrollItems, -1, -1);
-		mWindowManager.addView(parentBox, params);
-		showMenu();
+		
+	    showMenu();
         showIcon();
+		
+	    mWindowManager = ((Activity)context).getWindowManager();
+		mWindowManager.addView(parentBox, params);
 	}
 
 	View.OnTouchListener onTouchListener = new View.OnTouchListener()

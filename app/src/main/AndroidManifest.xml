@@ -13,9 +13,10 @@
         android:label="@string/app_name"     
         android:supportsRtl="true">
 		
-        <activity
+     <activity
             android:name="com.android.support.MainActivity"
-	    android:exported="true">
+	        android:exported="true">
+  
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>				
                 <category android:name="android.intent.category.LAUNCHER"/>

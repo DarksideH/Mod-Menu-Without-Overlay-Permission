@@ -27,7 +27,7 @@ extern "C" {
     Java_com_android_support_Loader_setTitleText(
         JNIEnv *env,
         jobject activityObject) {
-    jstring str = env->NewStringUTF("     Modded by Darkside");
+    jstring str = env->NewStringUTF("Modded by Darkside");
         return str;
     }
 
@@ -46,16 +46,16 @@ Java_com_android_support_Loader_GetFeatureList(
     jobjectArray ret;
     const char *features[] = {          	   
               "Text_The Text︎",//0
-              "ButtonOnOff_The On/Off button",//1   
+              "ButtonOnOff_The On/Off Button",//1   
 	          "Button_The Button",//2  
               "SeekBar_The SeekBar_0_12",//3     
-			  "Text_Hide && icon",//4
-              "Hide_Icon invisible",   
-			  "Close_Close menu",  
+			  "Text_Hide && Icon",//4
+              "Hide_Icon invisible",//Button Hide   
+			  "Close_Close menu",//Button Close  
             };
 
     int Total_Feature = (sizeof features /
-                         sizeof features[0]); //Now you dont have to manually update the number everytime;
+                         sizeof features[0]); 
 
     ret = (jobjectArray) env->NewObjectArray(Total_Feature, env->FindClass("java/lang/String"),
                                              env->NewStringUTF(""));
@@ -73,7 +73,7 @@ Java_com_android_support_Loader_Changes(
         jint value) {
         switch (feature) {
         case 1:
-          break; 
+        break; 
 	}
 }
 
